@@ -4,6 +4,12 @@
 
 #undef game
 
+enum Level {
+    LOW,
+    MEDIUM,
+    HIGH
+};
+
 // game constructor
 Game::Game()
     : window(nullptr), renderer(nullptr), gameloop(true), fullscreen(false),
@@ -18,9 +24,18 @@ Game::~Game()
     SDL_Quit();
 }
 
+
 // init event
 void Game::init()
 {
+    enum Level myLevelVariable = LOW;
+    enum Level myLevelVariable1 = MEDIUM;
+    enum Level myLevelVariable2 = HIGH;
+
+    std::cout << myLevelVariable << std::endl;
+    std::cout << myLevelVariable1 << std::endl;
+    std::cout << myLevelVariable2 << std::endl;
+
     // Validate SDL initialization was successful
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0) 
     { std::cout << "Error at SDL_Init()" << std::endl; }

@@ -2,7 +2,7 @@
 
 #include <object.h>
 
-#undef object
+#undef Object
 
 void Object::setDest(int x, int y, int w, int h){
     m_dest.x = x;

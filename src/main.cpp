@@ -11,5 +11,7 @@ int main(int argc, char* argv[]) {
     game.init(); // Initialize the game
     game.run(); // Start the game loop
 
+
+
     return EXIT_SUCCESS;
 }

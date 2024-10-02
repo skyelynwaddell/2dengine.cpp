@@ -7,6 +7,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <object.h>
+#include "player.h"
 
 class Game {
 public:
@@ -35,7 +36,7 @@ private:
     static const int HEIGHT = 720;
     static const int FPS = 60;
 
-    Object player;
+    Player player;
 
     void updateFPS();
 };
