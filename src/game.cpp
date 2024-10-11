@@ -4,6 +4,10 @@
 
 #undef game
 
+struct app {
+    Player* player;
+};
+
 enum Level {
     LOW,
     MEDIUM,
@@ -13,11 +17,12 @@ enum Level {
 // game constructor
 Game::Game()
     : window(nullptr), renderer(nullptr), gameloop(true), fullscreen(false),
-      frameCount(0), currentFPS(0), lastFrame(0) {}
+      frameCount(0), currentFPS(0), lastFrame(0), player(nullptr) {}
 
 // game loop cleanup
 Game::~Game()
 {
+    delete player;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     TTF_Quit();
@@ -51,9 +56,11 @@ void Game::init()
 
     TTF_Init();
 
-    player.setDest(10,10,100,100);
-    player.setSource(0,0,64,64);
-    player.setTexture("player.png", renderer);
+    player = new Player(0,0,16,16,"player.png",renderer, 100);
+
+    player->setDest(10,10,100,100);
+    player->setSource(0,0,64,64);
+    player->setTexture("player.png", renderer);
 }
 
 // update event
@@ -64,6 +71,8 @@ void Game::update(){
     // fullscreen toggler functionality
     if (fullscreen) SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
     else SDL_SetWindowFullscreen(window, 0);
+
+    player->Update();
 }
 
 // input event
@@ -93,14 +102,16 @@ void Game::draw() {
     rect.h = HEIGHT;
     SDL_RenderFillRect(renderer, &rect);
 
-    draw_sprite(player);
+    draw_sprite(*player);
     draw_text("Hello World :)", 20, 30, 0, 255, 0, 24);
+
+    player->Draw();
 
     SDL_RenderPresent(renderer);
 }
 
 // draw sprite
-void Game::draw_sprite(Object obj){
+void Game::draw_sprite(Object& obj){
     SDL_Rect dest = obj.getDest();
     SDL_Rect src = obj.getSource();
     SDL_RenderCopyEx(renderer, obj.getTexture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
@@ -110,7 +121,14 @@ void Game::draw_sprite(Object obj){
 void Game::draw_text(const char* msg, int x, int y, int r, int g, int b, int size){
     SDL_Surface* surf;
     SDL_Texture* tex;
-    TTF_Font *font = TTF_OpenFont("../assets/fonts/pico-8.ttf", size);
+
+    TTF_Font *font = TTF_OpenFont("assets/fonts/pico-8.ttf", size);
+    if (!font) {
+    std::cerr << "TTF_OpenFont Error: " << TTF_GetError() << std::endl;
+    // Handle error (e.g., exit or set a default font)
+    }
+
+
     SDL_Color color;
     color.r = r;
     color.g = g;

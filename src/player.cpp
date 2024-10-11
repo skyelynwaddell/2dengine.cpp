@@ -1,69 +1,21 @@
 #include "player.h"
+#include "object.h"
 
-#undef player
+using std::string;
 
-Player::Player(int x, int y)
+Player::Player(int x, int y, int w, int h, std::string sprite, SDL_Renderer *renderer, int health)
+: Object(x,y,w,h,sprite,renderer)
 {
-    this->mX = x;
-    this->mY = y;
+    m_health = 100;
+    Create();
 }
 
-int Player::getX()
-{
-    return 0;
+void Player::Create(){
+    SDL_Log("Create event");
 }
-
-int Player::setX()
-{
-    return 0;
+void Player::Update(){
+    SDL_Log("Update Event");
 }
-
-int Player::getY()
-{
-    return 0;
-}
-
-int Player::setY()
-{
-    return 0;
-}
-
-int Player::getDirX()
-{
-    return 0;
-}
-
-int Player::setDirX()
-{
-    return 0;
-}
-
-int Player::getDirY()
-{
-    return 0;
-}
-
-int Player::setDirY()
-{
-    return 0;
-}
-
-int Player::getSpd()
-{
-    return 0;
-}
-
-int Player::setSpd()
-{
-    return 0;
-}
-
-int Player::getGrvty()
-{
-    return 0;
-}
-
-int Player::setGrvty()
-{
-    return 0;
+void Player::Draw(){
+    SDL_Log("Draw Event");
 }

@@ -1,31 +1,16 @@
-//player.h
-
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 
 #include "object.h"
 
-class Player : Object {
+class Player : public Object {
 
     public:
+        Player(int x, int y, int w, int h, std::string sprite, SDL_Renderer* renderer, int health = 100);
 
-    Player(int x, int y);
-    int getX();
-    int setX();                     // x pos
-    int getY();     int setY();     //y pos
-    int getDirX();  int setDirX();  //dirx
-    int getDirY();  int setDirY();  //diry
-    int getSpd();   int setSpd();   //spd  
-    int getGrvty(); int setGrvty(); //grvty
+        void Create();
+        void Update();
+        void Draw();
 
     private:
-        int mX;
-        int mY;
-        int mDirX;
-        int mDirY;
-        int mSpd;
-        int mGrvty;
-
+        int m_health;
 };
-
-#endif //PLAYER_H

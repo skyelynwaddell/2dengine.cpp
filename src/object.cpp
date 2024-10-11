@@ -4,6 +4,12 @@
 
 #undef Object
 
+Object::Object(int x, int y, int w, int h, std::string sprite, SDL_Renderer* renderer){
+    setDest(x,y,w,h);
+    setSource(x,y,w,h);
+    setTexture(sprite,renderer);
+}
+
 void Object::setDest(int x, int y, int w, int h){
     m_dest.x = x;
     m_dest.y = y;
@@ -19,7 +25,7 @@ void Object::setSource(int x, int y, int w, int h){
 }
 
 void Object::setTexture(std::string filename, SDL_Renderer* renderer) {
-    SDL_Surface* surf = IMG_Load(("../assets/images/" + filename).c_str());
+    SDL_Surface* surf = IMG_Load(("assets/images/" + filename).c_str());
     if (surf == nullptr) {
         std::cout << "Error loading image: " << IMG_GetError() << std::endl;
         //return; // Exit the function if the image fails to load

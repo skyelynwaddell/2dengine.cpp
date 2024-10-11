@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "C/C++: g++.exe build active file",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${workspaceFolder}/src/*.cpp",  // This refers to the active C++ file you're editing
+                "-I", "${workspaceFolder}/include", // Add the include path for headers
+                "-I", "${workspaceFolder}/include/headers", // Add the include path for headers
+                "-I", "${workspaceFolder}/include/sdl", // Add the include path for headers
+                "-L", "${workspaceFolder}/lib",  // Path to SDL2 and other libraries
+                "-lSDL2",
+                "-lSDL2_image",
+                "-lSDL2_ttf",
+                "-o",
+                "${workspaceFolder}/bin/main.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Generated task by Debugger."
+        }
+    ]
+}

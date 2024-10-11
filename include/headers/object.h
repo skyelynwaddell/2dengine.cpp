@@ -17,7 +17,7 @@ private:
     int m_w;
     int m_h;
 public:
-    Object() {}
+    Object(int x, int y, int w, int h, std::string sprite, SDL_Renderer* renderer);
     SDL_Rect getDest() const { return m_dest; }
     SDL_Rect getSource() const { return m_src; }
     SDL_Texture* getTexture() const { return m_tex; }
