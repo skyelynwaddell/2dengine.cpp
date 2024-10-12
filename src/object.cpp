@@ -7,24 +7,8 @@
 Object::Object(int x, int y, int w, int h, string sprite, SDL_Renderer* renderer):
     m_x(x), m_y(y), m_w(w), m_h(h), m_spriteFile(sprite), m_renderer(renderer), m_spd(5), m_xspd(0), m_yspd(0)
 {
-    setDest(x,y,w,h);
-    setSource(x,y,w,h);
     setTexture(sprite,renderer);
     m_renderer = renderer;
-}
-
-void Object::setDest(int x, int y, int w, int h){
-    m_dest.x = x;
-    m_dest.y = y;
-    m_dest.w = w;
-    m_dest.h = h;
-}
-
-void Object::setSource(int x, int y, int w, int h){
-    m_src.x = x;
-    m_src.y = y;
-    m_src.w = w;
-    m_src.h = h;
 }
 
 void Object::setTexture(string filename, SDL_Renderer* renderer) {

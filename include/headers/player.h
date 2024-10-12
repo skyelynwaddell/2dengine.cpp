@@ -5,11 +5,11 @@
 class Player : public Object {
 
     public:
-        Player(int x, int y, int w, int h, string sprite, SDL_Renderer* renderer, int health = 100);
+        Player(SDL_Renderer *renderer, string sprite, int x, int y, int w, int h, int health);
 
         void Create();
-        void Input(SDL_Event event);
-        void Update();
+        void Input(const SDL_Event& event);
+        void Update(float delta_time);
         void Draw();
 
     private:

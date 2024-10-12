@@ -1,11 +1,17 @@
 //game.cpp
+#include "game.h"
+#include <iostream>
+#include <windows.h>
+#include <math.h>
+#include <stdio.h>
+#include "delta.h"
 
-#include <game.h>
 
 #undef game
 
 struct app {
     Player* player;
+
 };
 
 enum Level {
@@ -33,43 +39,34 @@ Game::~Game()
 // init event
 void Game::init()
 {
-    enum Level myLevelVariable = LOW;
-    enum Level myLevelVariable1 = MEDIUM;
-    enum Level myLevelVariable2 = HIGH;
+    TTF_Init();
+    TTF_Init();
 
-    std::cout << myLevelVariable << std::endl;
-    std::cout << myLevelVariable1 << std::endl;
-    std::cout << myLevelVariable2 << std::endl;
+    //preload files here
+    font = TTF_OpenFont("assets/fonts/pico-8.ttf",16);
 
     // Validate SDL initialization was successful
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0) 
     { std::cout << "Error at SDL_Init()" << std::endl; }
 
     // Validate Window & Renderer were created
-    if (SDL_CreateWindowAndRenderer(WIDTH,HEIGHT,0,&window,&renderer) < 0)
+    if (SDL_CreateWindowAndRenderer(WIDTH,HEIGHT,SDL_RENDERER_ACCELERATED,&window,&renderer) < 0)
     { std::cout << "Error at SDL_CreateWindowAndRenderer()" << std::endl; }
 
     // Init SDL Window Properties
-    SDL_SetWindowTitle(window, "2d engine");
-    SDL_ShowCursor(1);
+    SDL_SetWindowTitle(window, "cofebean engine");
+    SDL_ShowCursor(1); //display cursor
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
 
-    TTF_Init();
-
-    player = new Player(20,20,16,16,"player.png",renderer, 100);
-
-    //player->setDest(10,10,100,100);
-    //player->setSource(0,0,64,64);
-    //player->setTexture("player.png", renderer);
+    player = new Player(renderer,"player.png",0,0,16,16,100);
 }
 
 // update event
 void Game::update(){
 
-    updateFPS();
-    player->Update();
+    float delta_time = Delta::GetInstance()->GetDeltaTime();
 
-
+    player->Update(delta_time);
 
     // fullscreen toggler functionality
     if (fullscreen) SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
@@ -106,25 +103,25 @@ void Game::draw() {
     SDL_RenderFillRect(renderer, &rect);
 
     //draw_sprite(*player, renderer);
-    draw_text("Hello World :)", 20, 30, 0, 255, 0, 24);
+    
 
     player->Draw();
+
+}
+
+//draw gui event
+void Game::draw_gui(){
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+    draw_text("Points: 300", 20, 30, 0, 255, 0);
 
     SDL_RenderPresent(renderer);
 }
 
-
 //draw text
-void Game::draw_text(const char* msg, int x, int y, int r, int g, int b, int size){
+void Game::draw_text(const char* msg, int x, int y, int r, int g, int b) {
     SDL_Surface* surf;
     SDL_Texture* tex;
-
-    TTF_Font *font = TTF_OpenFont("assets/fonts/pico-8.ttf", size);
-    if (!font) {
-    std::cerr << "TTF_OpenFont Error: " << TTF_GetError() << std::endl;
-    // Handle error (e.g., exit or set a default font)
-    }
-
 
     SDL_Color color;
     color.r = r;
@@ -132,44 +129,43 @@ void Game::draw_text(const char* msg, int x, int y, int r, int g, int b, int siz
     color.b = b;
     color.a = 255;
 
+    surf = TTF_RenderText_Solid(font, msg, color);
+    if (!surf) {
+        std::cerr << "TTF_RenderText_Solid Error: " << TTF_GetError() << std::endl;
+        return;  // Handle error appropriately
+    }
+
+    tex = SDL_CreateTextureFromSurface(renderer, surf);
+    if (!tex) {
+        std::cerr << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+        SDL_FreeSurface(surf);
+        return;  // Handle error appropriately
+    }
+
     SDL_Rect rect;
-    surf = TTF_RenderText_Solid(font,msg,color);
-    tex = SDL_CreateTextureFromSurface(renderer,surf);
     rect.x = x;
     rect.y = y;
     rect.w = surf->w;
     rect.h = surf->h;
 
     SDL_FreeSurface(surf);
-    SDL_RenderCopy(renderer,tex,NULL,&rect);
+    SDL_RenderCopy(renderer, tex, NULL, &rect);
     SDL_DestroyTexture(tex);
 }
 
-//update fps
-void Game::updateFPS() {
-    frameCount++;
-    int timerFPS = SDL_GetTicks() - lastFrame;
-    if (timerFPS < (1000 / FPS)) SDL_Delay((1000 / FPS) - timerFPS);
-}
-
-//run , calls all the methods 
+// Main game loop
 void Game::run() {
-    static int lastTime = 0;
-    
-    // Main Game Loop
+
+
+    gameloop = true;
     while (gameloop) {
-        lastFrame = SDL_GetTicks();
-
-        if (lastFrame >= (lastTime + 1000)) { 
-            lastTime = lastFrame; 
-            currentFPS = frameCount;    
-            frameCount = 0;
-        }
-
-        //std::cout << currentFPS << std::endl;
+        
+        // Main Game Loop
         input();
         update();
         draw();
-
+        draw_gui();
+        Delta::GetInstance()->Tick();
     }
 }
+
