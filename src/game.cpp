@@ -56,28 +56,31 @@ void Game::init()
 
     TTF_Init();
 
-    player = new Player(0,0,16,16,"player.png",renderer, 100);
+    player = new Player(20,20,16,16,"player.png",renderer, 100);
 
-    player->setDest(10,10,100,100);
-    player->setSource(0,0,64,64);
-    player->setTexture("player.png", renderer);
+    //player->setDest(10,10,100,100);
+    //player->setSource(0,0,64,64);
+    //player->setTexture("player.png", renderer);
 }
 
 // update event
 void Game::update(){
 
     updateFPS();
+    player->Update();
+
+
 
     // fullscreen toggler functionality
     if (fullscreen) SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
     else SDL_SetWindowFullscreen(window, 0);
-
-    player->Update();
 }
 
 // input event
 void Game::input(){
     SDL_Event e;
+    
+    player->Input(e);
 
     // close game window when event is set to quit
     while (SDL_PollEvent(&e)) {
@@ -102,7 +105,7 @@ void Game::draw() {
     rect.h = HEIGHT;
     SDL_RenderFillRect(renderer, &rect);
 
-    draw_sprite(*player);
+    //draw_sprite(*player, renderer);
     draw_text("Hello World :)", 20, 30, 0, 255, 0, 24);
 
     player->Draw();
@@ -110,12 +113,6 @@ void Game::draw() {
     SDL_RenderPresent(renderer);
 }
 
-// draw sprite
-void Game::draw_sprite(Object& obj){
-    SDL_Rect dest = obj.getDest();
-    SDL_Rect src = obj.getSource();
-    SDL_RenderCopyEx(renderer, obj.getTexture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
-}
 
 //draw text
 void Game::draw_text(const char* msg, int x, int y, int r, int g, int b, int size){
@@ -169,10 +166,10 @@ void Game::run() {
             frameCount = 0;
         }
 
-        std::cout << currentFPS << std::endl;
-
+        //std::cout << currentFPS << std::endl;
         input();
         update();
         draw();
+
     }
 }

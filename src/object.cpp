@@ -4,10 +4,13 @@
 
 #undef Object
 
-Object::Object(int x, int y, int w, int h, std::string sprite, SDL_Renderer* renderer){
+Object::Object(int x, int y, int w, int h, string sprite, SDL_Renderer* renderer):
+    m_x(x), m_y(y), m_w(w), m_h(h), m_spriteFile(sprite), m_renderer(renderer), m_spd(5), m_xspd(0), m_yspd(0)
+{
     setDest(x,y,w,h);
     setSource(x,y,w,h);
     setTexture(sprite,renderer);
+    m_renderer = renderer;
 }
 
 void Object::setDest(int x, int y, int w, int h){
@@ -24,7 +27,7 @@ void Object::setSource(int x, int y, int w, int h){
     m_src.h = h;
 }
 
-void Object::setTexture(std::string filename, SDL_Renderer* renderer) {
+void Object::setTexture(string filename, SDL_Renderer* renderer) {
     SDL_Surface* surf = IMG_Load(("assets/images/" + filename).c_str());
     if (surf == nullptr) {
         std::cout << "Error loading image: " << IMG_GetError() << std::endl;
@@ -40,3 +43,11 @@ void Object::setTexture(std::string filename, SDL_Renderer* renderer) {
     SDL_SetTextureBlendMode(m_tex, SDL_BLENDMODE_BLEND);
     SDL_SetTextureScaleMode(m_tex, SDL_ScaleMode::SDL_ScaleModeNearest);
 }
+
+// draw sprite
+void Object::draw_sprite(Object& obj, SDL_Renderer* renderer){
+    SDL_Rect dest = obj.getDest();
+    SDL_Rect src = obj.getSource();
+    SDL_RenderCopyEx(renderer, obj.getTexture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
+}
+

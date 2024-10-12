@@ -18,7 +18,7 @@ public:
     void update();
     void input();
     void draw();
-    void draw_sprite(Object& obj);
+    void draw_sprite(Object& obj, SDL_Renderer* renderer);
     void draw_text(const char* msg, int x, int y, int r, int g, int b, int size);
     void run();
 

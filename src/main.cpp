@@ -3,7 +3,6 @@
 #include <iostream>
 #include "game.h"
 #include <object.h>
-
 #undef main
 
 int main(int argc, char* argv[]) {
