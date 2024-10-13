@@ -4,18 +4,35 @@
         {
             "label": "C/C++: g++.exe build active file",
             "type": "shell",
-            "command": "g++",
+            "command": "g++", //MINGW64
             "args": [
+                //DEBUG MODE
                 "-g",
-                "${workspaceFolder}/src/*.cpp",  // This refers to the active C++ file you're editing
-                "-I", "${workspaceFolder}/include", // Add the include path for headers
-                "-I", "${workspaceFolder}/include/headers", // Add the include path for headers
-                "-I", "${workspaceFolder}/include/sdl", // Add the include path for headers
+
+                //CPP FILES
+                "${workspaceFolder}/src/*.cpp",  
+                "${workspaceFolder}/src/core/*.cpp", 
+                "${workspaceFolder}/src/graphics/*.cpp",
+                "${workspaceFolder}/src/characters/*.cpp",
+
+                //HEADER FILES
+                "-I", "${workspaceFolder}/include",
+                "-I", "${workspaceFolder}/include/sdl",
+                "-I", "${workspaceFolder}/include/headers", 
+                "-I", "${workspaceFolder}/include/headers/core",
+                "-I", "${workspaceFolder}/include/headers/graphics",
+                "-I", "${workspaceFolder}/include/headers/physics", 
+                "-I", "${workspaceFolder}/include/headers/object", 
+                "-I", "${workspaceFolder}/include/headers/characters", 
+
+                //LIBRARIES
                 "-L", "${workspaceFolder}/lib",  // Path to SDL2 and other libraries
                 "-lSDL2",
                 "-lSDL2_image",
                 "-lSDL2_ttf",
                 "-lwinmm",
+
+                //OUTPUT
                 "-o",
                 "${workspaceFolder}/bin/main.exe"
             ],

@@ -1,2 +1,2 @@
 all:
-	g++ -g -Iinclude -Iinclude/sdl -Iinclude/headers -Llib -L -o bin/main src/*.cpp -lSDL2 -lSDL2_image -lSDL2_ttf -lwinmm
+	g++ -g -Iinclude -Iinclude/sdl -Iinclude/headers -Iinclude/headers/core -Llib -L -o bin/ src/*.cpp src/core/*.cpp -lSDL2 -lSDL2_image -lSDL2_ttf -lwinmm
