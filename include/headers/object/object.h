@@ -18,6 +18,15 @@ using std::string;
  *      - character.h
  */
 
+//This is the spritesheet type by row, can also be used for direction in the game
+enum DIRECTION
+{
+    DOWN,
+    LEFT,
+    RIGHT,
+    UP,
+};
+
 //Properties(string textureID, int x, int y, int width, int height, SDL_RendererFlip flip = SDL_FLIP_NONE)
 struct Properties {
 public:
@@ -41,6 +50,11 @@ public:
     Object(Properties* props) : m_textureID(props->TextureID), m_width(props->Width), m_height(props->Height), m_flip(props->Flip) 
     {
         m_transform = new Transform(props->X, props->Y);
+        m_row = DOWN; //set the row of the spritesheet (DOWN = 0 which correlates to row 0 of the spritesheet which all characters face downwards on that row)
+        m_animSpd = 300;
+        m_spriteSheet = props->TextureID;
+        m_animation = new Animation();
+        m_animation->SetProps(m_textureID,m_row,FRAMECOUNT,m_animSpd);
     }
     
     virtual void Create()=0;
@@ -69,7 +83,8 @@ protected:
     int m_row; //The spritesheet row (index starts at 0)
     int m_frameCount; //Framecount horizontally of spritesheet
     int m_frame; //Current Frame
-    int m_animSpd; //Animation Speed
+    int m_animSpd = 300; //Animation Speed
+    string m_spriteSheet = ""; //this is the abitrary name you assigned to the spritesheet when loading it in with the texturemanager
 
 };
 

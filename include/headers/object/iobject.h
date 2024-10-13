@@ -13,6 +13,9 @@ using std::string;
  *      - object.h
  */
 
+#define GRID_SIZE 16*4
+#define FRAMECOUNT 4 //size of spritesheet horizontally in sprite count
+
 class IObject {
 public:
     virtual void Create()=0;

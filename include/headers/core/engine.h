@@ -26,6 +26,7 @@ public:
 
     inline bool IsRunning(){ return m_isRunning; }
     inline SDL_Renderer* GetRenderer(){ return m_renderer; }
+    inline SDL_Window* GetWindow(){ return m_window; }
 
 private:
     Engine(){}

@@ -6,10 +6,12 @@
 #include "player.h"
 #include "input.h"
 #include "timer.h"
+#include "console.h"
 
 Engine* Engine::s_instance = nullptr; //reserve some memory for the object
 Input* Input::s_instance = nullptr; //reserve some memory for the object
 Player* player = nullptr;
+Console* console = nullptr;
 
 //CREATE
 bool Engine::Create(){
@@ -34,12 +36,14 @@ bool Engine::Create(){
 		return m_isRunning = false;
 	}
 
-	//Initialize Game Objects and such here
-
-	//Load Spritesheets
+	//Load Spritesheets (give each spritesheet an arbitrary name that the game will reference the spritesheet by)
 	TextureManager::GetInstance()->Load("player","player/player.png");
-
+	
+	//Initialize Game Objects and such here
 	player = new Player(new Properties("player", 100, 200, 16, 16));
+
+	//Initialize the console window
+	console = new Console();
 
 	return m_isRunning = true;
 }
@@ -47,6 +51,8 @@ bool Engine::Create(){
 //CLEAN
 bool Engine::Clean(){
 	
+	console->Clean();
+
 	TextureManager::GetInstance()->Clean();
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
@@ -70,18 +76,22 @@ void Engine::Draw(){
 
 	player->Draw();
 	//TextureManager::GetInstance()->Draw("player",20,20,16,16);
-
-	SDL_RenderPresent(m_renderer);
 }
+
 
 //DRAW GUI
 void Engine::DrawGUI()
 {
+
+	console->Draw();
+	SDL_RenderPresent(m_renderer);
+
 }
 
 //INPUT
 void Engine::Input(){
 	Input::GetInstance()->Listen();
+	console->Input();
 }
 
 //QUIT

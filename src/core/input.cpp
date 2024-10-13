@@ -3,6 +3,10 @@
 #include <SDL.h>
 #include "engine.h"
 
+#include "imgui.h"
+#include "imgui_impl_sdl2.h"
+#include "imgui_impl_sdlrenderer2.h"
+
 Input::Input()
 {
     m_keystates = SDL_GetKeyboardState(nullptr);
@@ -18,6 +22,9 @@ void Input::Listen()
             case SDL_KEYDOWN: KeyDown(); break;
             case SDL_KEYUP: KeyUp(); default: break;
         }
+
+        //get imgui inputs
+        ImGui_ImplSDL2_ProcessEvent(&e);
     }
 }
 
