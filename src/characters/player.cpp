@@ -14,7 +14,6 @@ Player::Player(Properties* props) : Character(props)
 //Player Update Event
 void Player::Update(float dt)
 {
-    Input();
     m_animation->Update();
 
     int key_up = (Input::GetInstance()->GetKeyDown(Input::GetInstance()->btn.up)) ? 1 : 0;

@@ -7,8 +7,10 @@
 #include "input.h"
 #include "timer.h"
 #include "console.h"
+#include "mapparser.h"
 
 Engine* Engine::s_instance = nullptr; //reserve some memory for the object
+MapParser* MapParser::s_instance = nullptr;
 Input* Input::s_instance = nullptr; //reserve some memory for the object
 Player* player = nullptr;
 Console* console = nullptr;
@@ -36,11 +38,18 @@ bool Engine::Create(){
 		return m_isRunning = false;
 	}
 
+	//Load Game Map / Tileset
+	string mapname = "level1";
+	MapParser::GetInstance()->Load(mapname, "maps/level1.tmx");
+	m_gamemap = MapParser::GetInstance()->GetMap(mapname);
+	
+
 	//Load Spritesheets (give each spritesheet an arbitrary name that the game will reference the spritesheet by)
-	TextureManager::GetInstance()->Load("player","player/player.png");
+	TextureManager::GetInstance()->Load("skye","assets/images/player/skye.png");
+	TextureManager::GetInstance()->Load("skye_dead","assets/images/player/skye_dead.png");
 	
 	//Initialize Game Objects and such here
-	player = new Player(new Properties("player", 100, 200, 16, 16));
+	player = new Player(new Properties("skye", 100, 200, 16, 16));
 
 	//Initialize the console window
 	console = new Console();
@@ -66,16 +75,26 @@ bool Engine::Clean(){
 void Engine::Update(){
 	float dt = Timer::GetInstance()->GetDeltaTime();
 
+	m_gamemap->Update();
 	player->Update(dt);
 }
 
 //DRAW
 void Engine::Draw(){
-	SDL_SetRenderDrawColor(m_renderer,124,0,124,255);
+	//SDL_SetRenderDrawColor(m_renderer,124,0,124,255);
 	SDL_RenderClear(m_renderer);
+
+	//render game map
 
 	player->Draw();
 	//TextureManager::GetInstance()->Draw("player",20,20,16,16);
+
+
+
+
+
+	m_gamemap->Draw();
+
 }
 
 

@@ -16,3 +16,11 @@ Simply run in the terminal to generate the .exe
 ```
 ./make.sh
 ```
+
+## Tilesets
+### Put tileset spritesheet png files inside
+```assets/tilesets/spritesheet.png```
+
+### Put TMX map files in 
+```maps/map.tmx```
+

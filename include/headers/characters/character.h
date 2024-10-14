@@ -11,8 +11,6 @@
  * 
  */
 
-
-
 //Character State Machine
 enum STATE
 {
@@ -25,7 +23,7 @@ enum STATE
 };
 
 //Character Object
-class Character : public Object {
+class Character : public Object { //abstract
 public:
     Character(Properties* props) : Object(props) { 
         m_moving = false;
@@ -37,7 +35,7 @@ public:
         m_yspd = 0;
     };
 
-    virtual void Create()=0;
+    //virtual void Create()=0;
     virtual void Update(float dt)=0;
     virtual void Draw()=0;
     virtual void DrawGUI()=0;

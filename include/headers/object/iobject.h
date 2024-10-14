@@ -14,11 +14,12 @@ using std::string;
  */
 
 #define GRID_SIZE 16*4
-#define FRAMECOUNT 4 //size of spritesheet horizontally in sprite count
+#define FRAMECOUNT 2 //size of spritesheet horizontally in sprite count
+#define FRAMECOUNT_DEAD 1 //size of spritesheet horizontally in sprite count for the dead sprites
 
 class IObject {
 public:
-    virtual void Create()=0;
+    //virtual void Create()=0;
     virtual void Update(float dt)=0;
     virtual void Draw()=0;
     virtual void DrawGUI()=0;

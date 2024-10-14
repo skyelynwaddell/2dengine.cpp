@@ -11,22 +11,26 @@
 
                 //CPP FILES
                 "${workspaceFolder}/src/*.cpp",  
+                "${workspaceFolder}/src/tinyxml/*.cpp",
+                "${workspaceFolder}/src/imgui/*.cpp",
                 "${workspaceFolder}/src/core/*.cpp", 
                 "${workspaceFolder}/src/graphics/*.cpp",
+                "${workspaceFolder}/src/map/*.cpp",
                 "${workspaceFolder}/src/characters/*.cpp",
-                "${workspaceFolder}/src/imgui/*.cpp",
 
                 //HEADER FILES
                 "-I", "${workspaceFolder}/include",
                 "-I", "${workspaceFolder}/include/sdl",
                 "-I", "${workspaceFolder}/include/imgui",
+                "-I", "${workspaceFolder}/include/tinyxml",
                 "-I", "${workspaceFolder}/include/headers", 
                 "-I", "${workspaceFolder}/include/headers/core",
                 "-I", "${workspaceFolder}/include/headers/graphics",
+                "-I", "${workspaceFolder}/include/headers/map", 
                 "-I", "${workspaceFolder}/include/headers/physics", 
+                "-I", "${workspaceFolder}/include/headers/gui", 
                 "-I", "${workspaceFolder}/include/headers/object", 
                 "-I", "${workspaceFolder}/include/headers/characters", 
-                "-I", "${workspaceFolder}/include/headers/gui", 
 
                 //LIBRARIES
                 "-L", "${workspaceFolder}/lib",  // Path to SDL2 and other libraries

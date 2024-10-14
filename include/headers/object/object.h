@@ -57,7 +57,7 @@ public:
         m_animation->SetProps(m_textureID,m_row,FRAMECOUNT,m_animSpd);
     }
     
-    virtual void Create()=0;
+    //virtual void Create()=0;
     virtual void Update(float dt)=0;
     virtual void Draw()=0;
     virtual void DrawGUI()=0;

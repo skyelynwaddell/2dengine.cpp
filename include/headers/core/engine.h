@@ -5,6 +5,7 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "gamemap.h"
 
 #define SCREEN_WIDTH 854
 #define SCREEN_HEIGHT 480 
@@ -21,7 +22,7 @@ public:
     void Draw();
     void DrawGUI();
     
-    //When we ask for the instance of the engine, it will beck if its a null pointer, if it is, it will make a new Engine object, else it will return the existing engine object
+    //When we ask for the instance of the engine, it will check if its a null pointer, if it is, it will make a new Engine object, else it will return the existing engine object
     inline static Engine* GetInstance(){ return s_instance = (s_instance != nullptr) ? s_instance : new Engine(); }
 
     inline bool IsRunning(){ return m_isRunning; }
@@ -33,6 +34,7 @@ private:
     bool m_isRunning;
     static Engine* s_instance; 
 
+    GameMap* m_gamemap;
     SDL_Window* m_window;
     SDL_Renderer* m_renderer;
 

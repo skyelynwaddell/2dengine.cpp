@@ -11,11 +11,10 @@ class Player : public Character {
 public:
     Player(Properties* props);
 
-    void Create(){};
+    //void Create(){};
     void Update(float dt);
     void Draw();
     void DrawGUI(){};
-    void Input(){};
     void Clean();
 
 private:

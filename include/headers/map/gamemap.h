@@ -11,22 +11,23 @@ class GameMap {
 public:
 
     //Draw all map layers
-    inline void Draw(){
+    void Draw(){
         for (unsigned int i=0; i<m_mapLayers.size(); i++){
             m_mapLayers[i]->Draw();
         }
     }    
 
     //Update all map layers
-    inline void Update(){
+    void Update(){
         for (unsigned int i=0; i<m_mapLayers.size(); i++){
             m_mapLayers[i]->Update();
         }
     }    
 
-    inline vector<Layer*> GetMapLayers() { return m_mapLayers; }
+    vector<Layer*> GetMapLayers() { return m_mapLayers; }
 private:
-    vector<Layer*> m_mapLayers;
+    friend class MapParser;
+    std::vector<Layer*> m_mapLayers;
 protected:
 };
 

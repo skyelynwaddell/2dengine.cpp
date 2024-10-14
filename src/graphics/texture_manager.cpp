@@ -9,18 +9,19 @@ bool TextureManager::Load(string id, string filename){
 
 	//Where the texture images are stored in the project
 	const string TEXTURE_DIR = "assets/images/";
+	const string TEXTURE_DIR2 = "../assets/images/";
 
 	//Load image from filename string & create a surface
-	SDL_Surface* surface = IMG_Load((TEXTURE_DIR + filename).c_str());
+	SDL_Surface* surface = IMG_Load((filename).c_str());
 	if (surface == nullptr){
-		SDL_Log("Texture Manager failed to load image: %s", SDL_GetError());
+		std::cout << "Texture Manager failed to load image: " << filename << std::endl;
 		return false;
 	}
 
 	//Create texture from surface
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surface);
 	if (texture == nullptr){
-		SDL_Log("Texture Manager failed to create texture from surface: %s", SDL_GetError());
+		std::cout << "Texture Manager failed to create texture from surface: " << SDL_GetError() << std::endl;
 		return false;
 	}
 
@@ -52,11 +53,24 @@ void TextureManager::DrawFrame(string id, int x, int y, int width, int height, i
 	SDL_Rect srcRect = {width*frame,height*row,width,height};
 
 	//Set the position of the image on the screen
-	SDL_Rect destRect = {x,y,width*4,height*4};
+	SDL_Rect destRect = {x,y,width,height};
 
 	//Draw the image to the renderer
 	int img_angle = 0;
 	SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(),m_textureMap[id],&srcRect,&destRect,img_angle,nullptr,flip);
+}
+
+//Draw Tile
+void TextureManager::DrawTile(string tilesetID, int tileSize, int x, int y, int row, int frame, SDL_RendererFlip flip)
+{
+	//Render the whole contents of the tile
+	SDL_Rect srcRect = {tileSize*frame,tileSize*(row-1),tileSize,tileSize};
+
+	//Set the position of the tile on the screen
+	SDL_Rect destRect = {x,y,tileSize,tileSize};
+
+	//Draw the tile to the renderer
+	SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(),m_textureMap[tilesetID],&srcRect,&destRect,0,0,flip);
 }
 
 //DROP
