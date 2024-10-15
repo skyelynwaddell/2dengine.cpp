@@ -42,7 +42,7 @@ Make sure you use the exact file types each folder states to use below
 ```assets/fonts/```
 
 ### Libraries this project uses
-sdl2, imgui, tinyxml
+sdl2, imgui, tileson
 
 ### Special thanks to the following
 madsycode, sdl enthusiasts discord
