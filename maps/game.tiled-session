@@ -1,97 +1,48 @@
 {
-    "Map/SizeTest": {
-        "height": 4300,
-        "width": 2
-    },
-    "activeFile": "level1.tmx",
+    "activeFile": "level1/level1.json",
     "expandedProjectPaths": [
+        "templates",
         "level1",
-        ".",
-        "templates"
+        "."
     ],
     "fileStates": {
         "": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInDock": 1
         },
-        "basement_tutorial2_empty.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
-        },
-        "level1.tmx": {
-            "scale": 1.9989583333333332,
-            "selectedLayer": 0,
+        "level1/level1.json": {
+            "scale": 1.834970238095238,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 136.07087024491926,
-                "y": 238.87441375716523
+                "x": 136.24199172816478,
+                "y": 168.12261779255533
             }
         },
-        "level1.tmx#basement_tutorial2_empty": {
+        "level1/level1.json#basement_tutorial2_empty": {
             "scaleInDock": 1
         },
         "level1/level1.tmx": {
-            "scale": 2.49375,
-            "selectedLayer": 0,
+            "scale": 3,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 145.56390977443613,
-                "y": 174.2355889724311
+                "x": 84.66666666666666,
+                "y": 81.5
             }
         },
         "level1/level1.tmx#basement_tutorial2_empty": {
             "scaleInDock": 1
-        },
-        "level1/map1.tmx": {
-            "scale": 1.6144345238095237,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 136.27062402064706,
-                "y": 260.1530094939626
-            }
-        },
-        "level1/map1.tmx#basement_tutorial2_empty": {
-            "scaleInDock": 1
-        },
-        "map1.tmx": {
-            "scale": 1,
-            "selectedLayer": 1,
-            "viewCenter": {
-                "x": 154,
-                "y": 344
-            }
-        },
-        "map1.tmx#basement_tutorial2_empty": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1
         }
     },
-    "last.exportedFilePath": "C:/Users/skye waddell/Documents/github/2dengine.cpp/maps",
-    "last.imagePath": "C:/Users/skye waddell/Documents/github/2dengine.cpp/assets/tilesets",
+    "last.exportedFilePath": "C:/Users/skye waddell/Documents/github/2dengine.cpp/maps/level1",
     "last.objectTemplatePath": "C:/Users/skye waddell/Documents/github/2dengine.cpp/maps/templates",
-    "last.worldFilePath": "C:/Users/skye waddell/Documents/github/2dengine.cpp/maps",
-    "loadedWorlds": [
-        "C:/Users/skye waddell/Documents/github/2dengine.cpp/maps/world1.world"
-    ],
-    "map.fixedSize": true,
-    "map.height": 30,
-    "map.lastUsedExportFilter": "All Files (*)",
-    "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 16,
-    "map.tileWidth": 16,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
     "openFiles": [
-        "level1.tmx"
+        "level1/level1.json",
+        "level1/level1.json"
     ],
     "project": "game.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "level1.tmx",
-        "level1/level1.tmx",
-        "level1/map1.tmx",
-        "map1.tmx",
-        "basement_tutorial2_empty.tsx"
-    ],
-    "tileset.lastUsedFormat": "tsx",
-    "tileset.tileSize": {
-        "height": 16,
-        "width": 16
-    }
+        "level1/level1.json"
+    ]
 }

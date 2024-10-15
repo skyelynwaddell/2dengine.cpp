@@ -7,13 +7,17 @@
 #include "input.h"
 #include "timer.h"
 #include "console.h"
-#include "mapparser.h"
+#include <SDL.h>
+#include <iostream>
+#include "tilemap.h"
+#include "objectlayer.h"
 
 Engine* Engine::s_instance = nullptr; //reserve some memory for the object
-MapParser* MapParser::s_instance = nullptr;
 Input* Input::s_instance = nullptr; //reserve some memory for the object
 Player* player = nullptr;
 Console* console = nullptr;
+TileMap* tilemap = nullptr;
+ObjectLayer* ObjectLayer::s_instance = nullptr;
 
 //CREATE
 bool Engine::Create(){
@@ -39,17 +43,14 @@ bool Engine::Create(){
 	}
 
 	//Load Game Map / Tileset
-	string mapname = "level1";
-	MapParser::GetInstance()->Load(mapname, "maps/level1.tmx");
-	m_gamemap = MapParser::GetInstance()->GetMap(mapname);
-	
+	tilemap = new TileMap("maps/level1/","level1","basement_tutorial2_empty");
 
 	//Load Spritesheets (give each spritesheet an arbitrary name that the game will reference the spritesheet by)
-	TextureManager::GetInstance()->Load("skye","assets/images/player/skye.png");
-	TextureManager::GetInstance()->Load("skye_dead","assets/images/player/skye_dead.png");
+	TextureManager::GetInstance()->Load("skye","assets/sprites/player/skye.png");
+	TextureManager::GetInstance()->Load("skye_dead","assets/sprites/player/skye_dead.png");
 	
 	//Initialize Game Objects and such here
-	player = new Player(new Properties("skye", 100, 200, 16, 16));
+	player = new Player(new Properties("skye", 0, 0, 16, 16));
 
 	//Initialize the console window
 	console = new Console();
@@ -60,8 +61,8 @@ bool Engine::Create(){
 //CLEAN
 bool Engine::Clean(){
 	
+	tilemap->Clean();
 	console->Clean();
-
 	TextureManager::GetInstance()->Clean();
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
@@ -75,25 +76,20 @@ bool Engine::Clean(){
 void Engine::Update(){
 	float dt = Timer::GetInstance()->GetDeltaTime();
 
-	m_gamemap->Update();
 	player->Update(dt);
 }
 
 //DRAW
 void Engine::Draw(){
-	//SDL_SetRenderDrawColor(m_renderer,124,0,124,255);
 	SDL_RenderClear(m_renderer);
 
-	//render game map
+	//SDL_SetRenderDrawColor(m_renderer,124,0,124,255);
+	tilemap->DrawBelow();
 
 	player->Draw();
 	//TextureManager::GetInstance()->Draw("player",20,20,16,16);
 
-
-
-
-
-	m_gamemap->Draw();
+	tilemap->DrawAbove();
 
 }
 

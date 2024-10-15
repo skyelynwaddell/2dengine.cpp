@@ -13,7 +13,7 @@ using std::string;
  *      - object.h
  */
 
-#define GRID_SIZE 16*4
+#define GRID_SIZE 16
 #define FRAMECOUNT 2 //size of spritesheet horizontally in sprite count
 #define FRAMECOUNT_DEAD 1 //size of spritesheet horizontally in sprite count for the dead sprites
 

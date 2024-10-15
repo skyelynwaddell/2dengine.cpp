@@ -28,7 +28,7 @@ public:
     Character(Properties* props) : Object(props) { 
         m_moving = false;
         m_movedDistance = 0;
-        m_spd = 2;
+        m_spd = 1;
         m_dirx = 0;
         m_diry = 0;
         m_xspd = 0;

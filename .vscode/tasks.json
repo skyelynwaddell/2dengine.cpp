@@ -11,7 +11,6 @@
 
                 //CPP FILES
                 "${workspaceFolder}/src/*.cpp",  
-                "${workspaceFolder}/src/tinyxml/*.cpp",
                 "${workspaceFolder}/src/imgui/*.cpp",
                 "${workspaceFolder}/src/core/*.cpp", 
                 "${workspaceFolder}/src/graphics/*.cpp",
@@ -22,11 +21,11 @@
                 "-I", "${workspaceFolder}/include",
                 "-I", "${workspaceFolder}/include/sdl",
                 "-I", "${workspaceFolder}/include/imgui",
-                "-I", "${workspaceFolder}/include/tinyxml",
+                "-I", "${workspaceFolder}/include/tileson",
                 "-I", "${workspaceFolder}/include/headers", 
                 "-I", "${workspaceFolder}/include/headers/core",
                 "-I", "${workspaceFolder}/include/headers/graphics",
-                "-I", "${workspaceFolder}/include/headers/map", 
+                "-I", "${workspaceFolder}/include/headers/map",
                 "-I", "${workspaceFolder}/include/headers/physics", 
                 "-I", "${workspaceFolder}/include/headers/gui", 
                 "-I", "${workspaceFolder}/include/headers/object", 
