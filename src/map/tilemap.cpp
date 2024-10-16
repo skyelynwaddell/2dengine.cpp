@@ -8,6 +8,8 @@ TileLayer* tiles_below = nullptr;
 
 TileMap::TileMap(string source_folder, string json_filename, string spritesheet_filename)
 {
+    std::cout << "Creating tilemap..." << std::endl;
+
     //set member variables
     m_sourceFolder = source_folder;
     m_jsonFilename = json_filename;
@@ -33,10 +35,11 @@ TileMap::TileMap(string source_folder, string json_filename, string spritesheet_
 	}
 
     //Instantiate the tile layers for each layer in Tiled
-    tiles_above = new TileLayer(m_map,"tiles_above",*m_spritesheet);
-    tiles_below = new TileLayer(m_map,"tiles_below",*m_spritesheet);
+    tiles_above = new TileLayer(*m_spritesheet, "tiles_above");
+    tiles_below = new TileLayer(*m_spritesheet, "tiles_below");
 
     //Load objects from object layers
+    ObjectLayer::GetInstance()->LoadWalls(m_map);
     ObjectLayer::GetInstance()->LoadDoors(m_map);
 
 }
@@ -44,13 +47,13 @@ TileMap::TileMap(string source_folder, string json_filename, string spritesheet_
 void TileMap::DrawAbove()
 {
     if(m_map->getStatus() != tson::ParseStatus::OK) return;
-    tiles_above->Draw();
+    tiles_above->Draw(m_map);
 }
 
 void TileMap::DrawBelow()
 {
     if(m_map->getStatus() != tson::ParseStatus::OK) return;
-    tiles_below->Draw();
+    tiles_below->Draw(m_map);
 }
 
 void TileMap::Clean()

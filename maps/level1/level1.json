@@ -70,7 +70,19 @@
          "draworder":"topdown",
          "id":2,
          "name":"objects",
-         "objects":[],
+         "objects":[
+                {
+                 "id":25,
+                 "template":"..\/templates\/spawn.json",
+                 "x":48,
+                 "y":64
+                }, 
+                {
+                 "id":27,
+                 "template":"..\/templates\/door.json",
+                 "x":208,
+                 "y":64
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -96,10 +108,93 @@
          "y":0
         }, 
         {
+         "color":"#ff0000",
          "draworder":"topdown",
          "id":7,
          "name":"walls",
-         "objects":[],
+         "objects":[
+                {
+                 "height":16,
+                 "id":8,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":64,
+                 "y":48
+                }, 
+                {
+                 "height":16,
+                 "id":9,
+                 "template":"..\/templates\/wall.json",
+                 "type":"wall",
+                 "width":32,
+                 "x":16,
+                 "y":48
+                }, 
+                {
+                 "id":10,
+                 "template":"..\/templates\/wall.json",
+                 "x":48,
+                 "y":32
+                }, 
+                {
+                 "height":96,
+                 "id":11,
+                 "template":"..\/templates\/wall.json",
+                 "width":16,
+                 "x":0,
+                 "y":64
+                }, 
+                {
+                 "height":48,
+                 "id":12,
+                 "template":"..\/templates\/wall.json",
+                 "width":64,
+                 "x":16,
+                 "y":160
+                }, 
+                {
+                 "height":112,
+                 "id":13,
+                 "template":"..\/templates\/wall.json",
+                 "width":16,
+                 "x":0,
+                 "y":208
+                }, 
+                {
+                 "height":16,
+                 "id":14,
+                 "template":"..\/templates\/wall.json",
+                 "width":240,
+                 "x":16,
+                 "y":320
+                }, 
+                {
+                 "height":256,
+                 "id":15,
+                 "template":"..\/templates\/wall.json",
+                 "width":16,
+                 "x":256,
+                 "y":64
+                }, 
+                {
+                 "height":16,
+                 "id":16,
+                 "template":"..\/templates\/wall.json",
+                 "width":48,
+                 "x":208,
+                 "y":48
+                }, 
+                {
+                 "height":224,
+                 "id":19,
+                 "template":"..\/templates\/wall.json",
+                 "width":80,
+                 "x":112,
+                 "y":64
+                }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -150,7 +245,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":5,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",

@@ -4,12 +4,13 @@
 
 TextureManager* TextureManager::s_instance = nullptr;
 
+void TextureManager::LoadSpritesheets(){
+	GetInstance()->Load("skye","assets/sprites/player/skye.png");
+	GetInstance()->Load("skye_dead","assets/sprites/player/skye_dead.png");
+}
+
 //LOAD
 bool TextureManager::Load(string id, string filename){
-
-	//Where the texture images are stored in the project
-	const string TEXTURE_DIR = "assets/images/";
-	const string TEXTURE_DIR2 = "../assets/images/";
 
 	//Load image from filename string & create a surface
 	SDL_Surface* surface = IMG_Load((filename).c_str());

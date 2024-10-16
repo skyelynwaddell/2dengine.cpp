@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "character.h"
 #include <input.h>
+#include <camera.h>
 
 //Player Constructor || Player::Player(Properties* props) : Character(props)
 Player::Player(Properties* props) : Character(props)
@@ -38,12 +39,16 @@ void Player::Update(float dt)
             MoveInDirection(m_movementDirection);
         break;
     }
+
+    m_origin->X = m_transform->X + m_width / 2;
+    m_origin->Y = m_transform->Y + m_height / 2;
 }
 
 //Player Draw Event
 void Player::Draw()
 {
-    m_animation->Draw(m_transform->X, m_transform->Y, m_width, m_height);
+    Vector2 cam = Camera::GetInstance()->GetPosition();
+    m_animation->Draw(m_transform->X - cam.X, m_transform->Y - cam.Y, m_width, m_height);
 }
 
 //Player Clean-Up Event

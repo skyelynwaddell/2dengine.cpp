@@ -55,6 +55,10 @@ public:
         m_spriteSheet = props->TextureID;
         m_animation = new Animation();
         m_animation->SetProps(m_textureID,m_row,FRAMECOUNT,m_animSpd);
+
+        float px = props->X + props->Width / 2;
+        float py = props->Y + props->Height / 2;
+        m_origin = new Vector2(px,py);
     }
     
     //virtual void Create()=0;
@@ -62,6 +66,8 @@ public:
     virtual void Draw()=0;
     virtual void DrawGUI()=0;
     virtual void Clean()=0;
+
+    inline Vector2* GetOrigin(){ return m_origin; }
 
     void DrawSetSprite(string textureID, int row, int frameCount, int animSpd){
         m_textureID = textureID;
@@ -78,6 +84,8 @@ protected:
     string m_textureID;
     Transform* m_transform;
     SDL_RendererFlip m_flip;
+
+    Vector2* m_origin;
 
     Animation* m_animation; //Objects animation 
     int m_row; //The spritesheet row (index starts at 0)

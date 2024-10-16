@@ -1,17 +1,26 @@
 #include "tilelayer.h"
+#include <vector2.h>
+#include <camera.h>
 
-TileLayer::TileLayer(std::unique_ptr<tson::Map>& map, std::string layer_name, SDL_Texture& spritesheet) : m_spritesheet(spritesheet)
+TileLayer::TileLayer(SDL_Texture& spritesheet, std::string layer_name) : m_spritesheet(spritesheet), m_layername(layer_name)
 {
-    tson::Layer* tileLayer = map->getLayer(layer_name);
+}
+
+void TileLayer::Draw(std::unique_ptr<tson::Map> &map)
+{
+
+    tson::Layer* tileLayer = map->getLayer(m_layername);
     if (tileLayer && tileLayer->getType() == tson::LayerType::TileLayer) {
         for (auto &[pos, tileObject] : tileLayer->getTileObjects()) {
             tson::Rect drawingRect = tileObject.getDrawingRect();
             tson::Vector2f position = tileObject.getPosition();
 
+            Vector2 cam = Camera::GetInstance()->GetPosition();
+
             // Define the destination rectangle for rendering
             SDL_Rect destRect;
-            destRect.x = static_cast<int>(position.x);
-            destRect.y = static_cast<int>(position.y);
+            destRect.x = static_cast<int>(position.x - cam.X);
+            destRect.y = static_cast<int>(position.y - cam.Y);
             destRect.w = static_cast<int>(drawingRect.width);
             destRect.h = static_cast<int>(drawingRect.height);
 
@@ -23,15 +32,15 @@ TileLayer::TileLayer(std::unique_ptr<tson::Map>& map, std::string layer_name, SD
             srcRect.h = static_cast<int>(drawingRect.height);
 
             // Store the rectangles in the vectors
-            m_destRects.push_back(destRect);
-            m_srcRects.push_back(srcRect);
+            SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), &m_spritesheet, &srcRect, &destRect);
+
         }
     }
 }
 
-void TileLayer::Draw()
-{
-    for (size_t i = 0; i < m_srcRects.size(); ++i) {
-        SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), &m_spritesheet, &m_srcRects[i], &m_destRects[i]);
-    }
-}
+// void TileLayer::Draw()
+// {
+//     for (size_t i = 0; i < m_srcRects.size(); ++i) {
+//         SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), &m_spritesheet, &m_srcRects[i], &m_destRects[i]);
+//     }
+// }

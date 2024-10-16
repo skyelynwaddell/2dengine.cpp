@@ -1,20 +1,20 @@
 {
     "activeFile": "level1/level1.json",
     "expandedProjectPaths": [
-        "templates",
+        ".",
         "level1",
-        "."
+        "templates"
     ],
     "fileStates": {
         "": {
             "scaleInDock": 1
         },
         "level1/level1.json": {
-            "scale": 1.834970238095238,
-            "selectedLayer": 1,
+            "scale": 2,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 136.24199172816478,
-                "y": 168.12261779255533
+                "x": 104,
+                "y": 121.75
             }
         },
         "level1/level1.json#basement_tutorial2_empty": {
@@ -37,7 +37,6 @@
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "json",
     "openFiles": [
-        "level1/level1.json",
         "level1/level1.json"
     ],
     "project": "game.tiled-project",

@@ -11,6 +11,7 @@
 #include <iostream>
 #include "tilemap.h"
 #include "objectlayer.h"
+#include "camera.h"
 
 Engine* Engine::s_instance = nullptr; //reserve some memory for the object
 Input* Input::s_instance = nullptr; //reserve some memory for the object
@@ -21,6 +22,7 @@ ObjectLayer* ObjectLayer::s_instance = nullptr;
 
 //CREATE
 bool Engine::Create(){
+	std::cout << "### skyesrc 2024 ###\n" << std::endl;
 
 	//Start up SDL and SDL_Image
 	if (SDL_Init(SDL_INIT_VIDEO) != 0 && IMG_Init(IMG_INIT_PNG) != 0) {
@@ -42,18 +44,14 @@ bool Engine::Create(){
 		return m_isRunning = false;
 	}
 
-	//Load Game Map / Tileset
+	//Initialize Game Objects
 	tilemap = new TileMap("maps/level1/","level1","basement_tutorial2_empty");
-
-	//Load Spritesheets (give each spritesheet an arbitrary name that the game will reference the spritesheet by)
-	TextureManager::GetInstance()->Load("skye","assets/sprites/player/skye.png");
-	TextureManager::GetInstance()->Load("skye_dead","assets/sprites/player/skye_dead.png");
-	
-	//Initialize Game Objects and such here
+	console = new Console();
+	TextureManager::LoadSpritesheets();
 	player = new Player(new Properties("skye", 0, 0, 16, 16));
 
-	//Initialize the console window
-	console = new Console();
+	Camera::GetInstance()->SetTarget(player->GetOrigin());
+
 
 	return m_isRunning = true;
 }
@@ -77,6 +75,7 @@ void Engine::Update(){
 	float dt = Timer::GetInstance()->GetDeltaTime();
 
 	player->Update(dt);
+	Camera::GetInstance()->Update(dt);
 }
 
 //DRAW
@@ -84,23 +83,18 @@ void Engine::Draw(){
 	SDL_RenderClear(m_renderer);
 
 	//SDL_SetRenderDrawColor(m_renderer,124,0,124,255);
-	tilemap->DrawBelow();
-
-	player->Draw();
 	//TextureManager::GetInstance()->Draw("player",20,20,16,16);
 
+	tilemap->DrawBelow();
+	player->Draw();
 	tilemap->DrawAbove();
-
 }
-
 
 //DRAW GUI
 void Engine::DrawGUI()
 {
-
 	console->Draw();
 	SDL_RenderPresent(m_renderer);
-
 }
 
 //INPUT
