@@ -7,11 +7,11 @@ void Camera::Update(float dt)
 {
     if (m_target == nullptr) return;
 
-    int target_x = m_target->X - (SCREEN_WIDTH / 2);
-    int target_y = m_target->Y - (SCREEN_HEIGHT / 2);
+    int target_x = m_target->X - (SCREEN_WIDTH / 2 / m_zoom);
+    int target_y = m_target->Y - (SCREEN_HEIGHT / 2 / m_zoom);
 
-    int max_width = SCREEN_WIDTH - m_viewbox.w;
-    int max_height = SCREEN_HEIGHT - m_viewbox.h;
+    int max_width = SCREEN_WIDTH - (m_viewbox.w / m_zoom);
+    int max_height = SCREEN_HEIGHT - (m_viewbox.h / m_zoom);
 
     m_viewbox.x = target_x;
     m_viewbox.y = target_y;

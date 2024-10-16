@@ -47,8 +47,7 @@ void Player::Update(float dt)
 //Player Draw Event
 void Player::Draw()
 {
-    Vector2 cam = Camera::GetInstance()->GetPosition();
-    m_animation->Draw(m_transform->X - cam.X, m_transform->Y - cam.Y, m_width, m_height);
+    m_animation->Draw(m_transform->X, m_transform->Y, m_width, m_height);
 }
 
 //Player Clean-Up Event

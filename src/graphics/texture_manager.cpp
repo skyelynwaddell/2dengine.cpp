@@ -1,6 +1,7 @@
 #include "texture_manager.h" 
 #include <SDL_image.h>
 #include "engine.h"
+#include <camera.h>
 
 TextureManager* TextureManager::s_instance = nullptr;
 
@@ -49,12 +50,16 @@ void TextureManager::Draw(string id, int x, int y, int width, int height, SDL_Re
 //DRAW FRAME
 void TextureManager::DrawFrame(string id, int x, int y, int width, int height, int row, int frame, SDL_RendererFlip flip)
 {
+	int _x = Camera::TranslateX(x);
+	int _y = Camera::TranslateY(y);
+	int _width = Camera::TranslateZoom(width);
+	int _height = Camera::TranslateZoom(height);
 
 	//Render the whole contents of the image
 	SDL_Rect srcRect = {width*frame,height*row,width,height};
 
 	//Set the position of the image on the screen
-	SDL_Rect destRect = {x,y,width,height};
+	SDL_Rect destRect = {_x,_y,_width,_height};
 
 	//Draw the image to the renderer
 	int img_angle = 0;

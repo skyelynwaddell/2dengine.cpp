@@ -15,14 +15,12 @@ void TileLayer::Draw(std::unique_ptr<tson::Map> &map)
             tson::Rect drawingRect = tileObject.getDrawingRect();
             tson::Vector2f position = tileObject.getPosition();
 
-            Vector2 cam = Camera::GetInstance()->GetPosition();
-
             // Define the destination rectangle for rendering
             SDL_Rect destRect;
-            destRect.x = static_cast<int>(position.x - cam.X);
-            destRect.y = static_cast<int>(position.y - cam.Y);
-            destRect.w = static_cast<int>(drawingRect.width);
-            destRect.h = static_cast<int>(drawingRect.height);
+            destRect.x = static_cast<int>(Camera::TranslateX(position.x));
+            destRect.y = static_cast<int>(Camera::TranslateY(position.y));
+            destRect.w = static_cast<int>(Camera::TranslateZoom(drawingRect.width));
+            destRect.h = static_cast<int>(Camera::TranslateZoom(drawingRect.height));
 
             // Define the source rectangle for the tile on the tileset
             SDL_Rect srcRect;
